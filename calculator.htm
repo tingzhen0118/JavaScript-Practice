@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Javascript Loan Calculator</title>
+    <title>Javascript Loan calculate</title>
     <style>
         .output {
             font-weight: bold;
@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td>Amount of the loan ($):</td>
-            <td><input id="amount" onchange="calculator();"> </td>
+            <td><input id="amount" onchange="calculate();"> </td>
             <!--當user輸入數值後執行onchange-->
             <td rowspan=8>
                 <!--合併表格列-->
@@ -49,19 +49,19 @@
         </tr>
         <tr>
             <td>Annual interest (%):</td>
-            <td><input id="apr" onchange="calculator();"></td>
+            <td><input id="apr" onchange="calculate();"></td>
         </tr>
         <tr>
             <td>Repayment period (years):</td>
-            <td><input id="years" onchange="calculator();"></td>
+            <td><input id="years" onchange="calculate();"></td>
         </tr>
         <tr>
             <td>Zipcode (to find lenders):</td>
-            <td><input id="zipcode" onchange="calculator();"></td>
+            <td><input id="zipcode" onchange="calculate();"></td>
         </tr>
         <tr>
             <th>Approximate Payments:</th>
-            <td><button onclick="calculator();">calculate</button></td>
+            <td><button onclick="calculate();">calculate</button></td>
         </tr>
         <tr>
             <td>Monthly Payment:</td>
@@ -201,7 +201,7 @@
             /*若呼叫時沒傳入參數，或瀏覽器不支援canvas畫布，會現在回傳結果*/
             if ( arguments.length == 0 || !graph.getContext ) return;
             /*取得canvas的context物件，可以定義繪圖API*/
-            var g = graph.gerContext( "2d" ); //所有關於繪圖的指令皆在這個物件下完成
+            var g = graph.getContext( "2d" ); //所有關於繪圖的指令皆在這個物件下完成
             var width = graph.width,
                 height = graph.height; //取得畫布大小
             //下列函式會將支出額及美元數量轉為像素
@@ -209,12 +209,12 @@
                 return n * width / payments;
             }
 
-            function amountToY( n ) {
+            function amountToY( a ) {
                 return height - ( a * height / ( monthly * payments * 1.05 ) );
             }
             /*支付額是一條從(0,0)到(payments,monthly*payments)的直線*/
             g.moveTo( paymentToX( 0 ), amountToY( 0 ) ); //從左下角開始畫
-            g.lineTo( paymentTo( payments ), amountToY( monthly *
+            g.lineTo( paymentToX( payments ), amountToY( monthly *
                 payments ) ); //畫到右上角
             g.lineTo( paymentToX( payments ), amountToY( 0 ) ); //畫到右下角
             g.closePath(); //再回到起始點
@@ -275,8 +275,6 @@
                 g.fillText( String( ticks[ i ].toFixed( 0 ) ), rightEdge - 5,
                     y );
             }
-
-
         }
     </script>
 </body>
